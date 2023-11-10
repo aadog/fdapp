@@ -18,7 +18,7 @@ namespace fdapp.Service
             await using var outputStream = process?.OutputStream;
             await using var inputStream = process?.InputStream;
             await using var errorStream=process?.ErrorStream;
-            await outputStream!.WriteAsync(Encoding.Default.GetBytes($"{commond}"));
+            await outputStream!.WriteAsync(Encoding.UTF8.GetBytes($"{commond}"));
             await outputStream!.WriteAsync(Encoding.UTF8.GetBytes("\n"));
             await outputStream!.FlushAsync();
             outputStream.Close();

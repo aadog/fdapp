@@ -23,7 +23,7 @@ namespace fdapp
                     _mainPageBindingModel.rootState = $"({r})";
                     _mainPageBindingModel.Ref();
                 });
-                var state = await RootShell.Exec($"ps -ef|grep {fridaName}|grep -v grep");
+                var state = await RootShell.Exec($"pgrep  {fridaName}");
                 if (state!="") {
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
@@ -44,7 +44,7 @@ namespace fdapp
                 
                 if (!File.Exists($"/data/local/tmp/{fridaName}"))
                 {
-                    await DisplayAlert("cuow", "test", "ok");
+                    //await DisplayAlert("cuow", "test", "ok");
                     await using var stream = await FileSystem.OpenAppPackageFileAsync("fs-16.1.5");
                     await using var memoryStream = new MemoryStream();
                     await stream.CopyToAsync(memoryStream);
@@ -85,7 +85,13 @@ namespace fdapp
             {
                 _mainPageBindingModel.executeIng = true;
                 _mainPageBindingModel.Ref();
-                await RootShell.Exec($"pkill -9 {fridaName}");
+                try
+                {
+                    await RootShell.Exec($"killall {fridaName}");
+                }
+                catch
+                {
+                }
                 _mainPageBindingModel.fridaIsStart = false;
             }
             catch (Exception ex)
@@ -104,7 +110,12 @@ namespace fdapp
             {
                 _mainPageBindingModel.executeIng = true;
                 _mainPageBindingModel.Ref();
-                await RootShell.Exec($"pkill -9 {fridaName}");
+                try
+                {
+                    await RootShell.Exec($"killall {fridaName}");
+                }
+                catch { 
+                }
                 await RootShell.Exec($"rm -rf /data/local/tmp/{fridaName}");
                 _mainPageBindingModel.fridaIsStart = false;
             }
