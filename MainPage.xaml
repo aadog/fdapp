@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="fdapp.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="15,25"
+            >
+            <FlexLayout>
+                <Label  Text="当前设备root状态:" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" ></Label>
+                <Label  Text="{Binding RootState}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FlexLayout.Grow="1"></Label>
+            </FlexLayout>
+            <FlexLayout>
+                <Label  Text="frida端口:" HorizontalTextAlignment="End" VerticalTextAlignment="Center" FlexLayout.Grow="2"></Label>
+                <Entry Text="{Binding FridaPort}" Placeholder="frida监听端口" VerticalTextAlignment="End" FontSize="17" ClearButtonVisibility="WhileEditing" FlexLayout.Grow="8" ></Entry>
+            </FlexLayout>
+            <FlexLayout >
+                <CheckBox VerticalOptions="End" Margin="-3,0,0,0" HeightRequest="30" IsChecked="{Binding FridaUseNetwork}"></CheckBox>
+                <Label Text="frida使用网络端口" VerticalTextAlignment="Center"></Label>
+            </FlexLayout>
+            <FlexLayout HeightRequest="80">
+                <Button Text="启动frida" FlexLayout.Grow="1" IsEnabled="{Binding FridaStartIsEnable}" Clicked="ButtonStartFrida_Clicked"/>
+                <Button Text="停止" FlexLayout.Grow="1" Margin="8,0,0,0" IsEnabled="{Binding FridaStopIsEnable}" Clicked="ButtonStopFrida_Clicked"/>
+                <Button Text="强制清理" FlexLayout.Grow="1" Margin="8,0,0,0" IsEnabled="{Binding FridaClearIsEnable}" Clicked="ButtonClearFrida_Clicked"/>
+            </FlexLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
